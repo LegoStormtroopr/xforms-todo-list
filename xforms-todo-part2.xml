@@ -1,0 +1,53 @@
+<?xml-stylesheet href="xsltforms/xsltforms.xsl" type="text/xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events">
+  <head>
+    <title>XForms todo list</title>
+    <xf:model>
+      <xf:instance xmlns="">
+        <tasklist>
+          <task complete="false" dueDate="2013-07-27">Pick up milk</task>
+          <task complete="true" dueDate="2013-07-27">Make tutorial part 1</task>
+        </tasklist>
+      </xf:instance>
+    </xf:model>
+    <style type="text/css">
+      .xforms-repeat-item-selected * {
+          background-color: #DDF;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Task name</th>
+          <th>Complete</th>
+          <th>Due date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <xf:repeat id="tasks" nodeset="/tasklist/task">
+          <tr>
+            <td><xf:input ref="."/></td>
+            <td><xf:input ref="@complete"/></td>
+            <td><xf:input ref="@dueDate" /></td>
+          </tr>
+        </xf:repeat>
+      </tbody>
+    </table>
+    <xf:trigger>
+      <xf:label>Add Task</xf:label>
+      <xf:action ev:event="DOMActivate">
+        <xf:insert nodeset="/tasklist/task" at="last()" position="after" />
+        <xf:setvalue ref="/tasklist/task[last()]" value="" />
+        <xf:setvalue ref="/tasklist/task[last()]/@complete" value="false()" />
+        <xf:setvalue ref="/tasklist/task[last()]/@dueDate" value="'1970-01-01'" />
+      </xf:action>
+    </xf:trigger>
+    <xf:trigger>
+      <xf:label>Delete task <xf:output value="index('tasks')"/>
+      </xf:label>
+      <xf:delete ev:event="DOMActivate" nodeset="/tasklist/task" at="index('tasks')"/>
+    </xf:trigger>
+  </body>
+</html>

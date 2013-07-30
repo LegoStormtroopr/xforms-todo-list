@@ -1,0 +1,31 @@
+<?xml-stylesheet href="xsltforms/xsltforms.xsl" type="text/xsl"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" >
+  <head>
+    <title>XForms todo list</title>
+    <xf:model>
+      <xf:instance xmlns="">
+        <task complete="false" dueDate="2013-07-27">Pick up milk</task>
+      </xf:instance>
+    </xf:model>
+    <style type="text/css">
+      .xforms-input {
+        display:block;
+      }
+      .xforms-label {
+        display:inline-block;
+        width:5em;
+      }
+    </style>
+  </head>
+  <body>
+    <xf:input ref="//task">
+      <xf:label>Task name:</xf:label>
+    </xf:input>
+    <xf:input ref="//task/@complete">
+      <xf:label>Complete:</xf:label>
+    </xf:input>
+    <xf:input ref="//task/@dueDate" >
+      <xf:label>Due date:</xf:label>
+    </xf:input>
+  </body>
+</html>
